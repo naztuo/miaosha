@@ -1,4 +1,4 @@
-package com.naztuo.common.redis;
+package com.naztuo.common.redis.keys;
 
 public abstract class BasePrefix implements  KeyPrefix {
 

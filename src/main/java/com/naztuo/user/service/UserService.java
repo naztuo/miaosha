@@ -1,7 +1,7 @@
 package com.naztuo.user.service;
 
 import com.naztuo.common.enums.ResultStatus;
-import com.naztuo.common.redis.RedisUserKey;
+import com.naztuo.common.redis.keys.RedisUserKey;
 import com.naztuo.common.redis.RedisService;
 import com.naztuo.exception.GlobleException;
 import com.naztuo.user.bean.LoginVo;

@@ -17,7 +17,7 @@ spring:
     password: 123456
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
-  type-aliases-package: com.naztuo.user.bean
+  type-aliases-package: com.naztuo.user.bean,com.naztuo.miaosha.bean
   configuration:
     map-underscore-to-camel-case: true
   config-locations: classpath:mybatis/mybatis-config.xml
