@@ -1,5 +1,4 @@
 
-
 logging:
   level:
     com.naztuo: debug
@@ -11,3 +10,15 @@ spring:
     port: 6379
     password: 123456
     timeout: 5000
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/miaosha?serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: com.naztuo.user.bean
+  configuration:
+    map-underscore-to-camel-case: true
+  config-locations: classpath:mybatis/mybatis-config.xml
+

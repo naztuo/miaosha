@@ -16,6 +16,8 @@ public class AbstractResult {
         this.message = message;
     }
 
+
+
     protected AbstractResult(ResultStatus status) {
         this.code = status.getCode();
         this.message = status.getMessage();

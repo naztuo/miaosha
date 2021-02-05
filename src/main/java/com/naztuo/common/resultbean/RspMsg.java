@@ -18,6 +18,20 @@ public class RspMsg<T> extends AbstractResult implements Serializable {
         super(status);
     }
 
+
+    protected RspMsg(ResultStatus status, String message, T data, Integer count) {
+        super(status, message);
+        this.data = data;
+        this.count = count;
+    }
+
+    protected RspMsg(ResultStatus status, T data) {
+        super(status);
+        this.data = data;
+    }
+
+
+
     public static <T> RspMsg<T> success() {
         return new RspMsg<>(ResultStatus.SUCCESS, null);
     }
@@ -26,9 +40,14 @@ public class RspMsg<T> extends AbstractResult implements Serializable {
         return new RspMsg(ResultStatus.SUCCESS, message);
     }
 
+    public static <T> RspMsg<T> success(T data) {
+        return new RspMsg<>(ResultStatus.SUCCESS, data);
+    }
+
     public static <T> RspMsg<T> error(ResultStatus status) {
         return new RspMsg<T>(status);
     }
+
 
     public T getData() {
         return data;
@@ -46,10 +65,5 @@ public class RspMsg<T> extends AbstractResult implements Serializable {
         this.count = count;
     }
 
-    public void success(T value) {
-        this.withSuccess();
-        this.data = value;
-        this.count = 0;
-    }
 
 }

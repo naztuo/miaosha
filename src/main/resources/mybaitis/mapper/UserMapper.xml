@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="MiaoshaUser">
+        <id column="id" property="id" />
+        <result column="nickname" property="nickname" />
+        <result column="password" property="password" />
+        <result column="salt" property="salt" />
+        <result column="head" property="head" />
+        <result column="register_date" property="registerDate" />
+        <result column="last_login_date" property="lastLoginDate" />
+    </resultMap>
+    <insert id="insertMiaoShaUser" parameterType="MiaoshaUser">
+        insert into miaosha_user (id , nickname ,password , salt ,head,register_date,last_login_date)
+        values (#{id},#{nickname},#{password},#{salt},#{head},#{registerDate},#{lastLoginDate})
+    </insert>
+
+    <select id="getByNickname" resultMap="BaseResultMap">
+        select * from miaosha_user where nickname = #{nickname}
+    </select>
+
+</mapper>
