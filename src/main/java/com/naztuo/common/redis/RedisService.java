@@ -3,8 +3,10 @@ package com.naztuo.common.redis;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -46,6 +48,10 @@ public class RedisService {
         return t;
     }
 
+    public <T> T  execute(DefaultRedisScript<T> redisScript, List<String> keys, Object... args) {
+        return (T) redisTemplate.execute(redisScript, keys, args);
+    }
+
 
     public static <T> T stringToBean(String str, Class<T> clazz) {
         if (str == null || str.length() <= 0 || clazz == null) {
@@ -77,7 +83,6 @@ public class RedisService {
         return ret;
 
     }
-
 
 
     public static <T> String beanToString(T value) {
