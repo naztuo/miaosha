@@ -1,6 +1,7 @@
 package com.naztuo.common.log;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.google.common.collect.Lists;
 import com.naztuo.common.resultbean.RspMsg;
 import org.aspectj.lang.JoinPoint;
@@ -47,7 +48,7 @@ public class WebLogAspect {
             }
             paramList.add(parameter);
         }
-        LogHelpler.logStart(classMethod, JSON.toJSONString(paramList));
+        LogHelpler.logStart(classMethod, JSON.toJSONString(paramList, SerializerFeature.IgnoreNonFieldGetter));
     }
 
     /**

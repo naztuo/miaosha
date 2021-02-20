@@ -2,7 +2,7 @@ package com.naztuo.miaosha.bean;
 
 import java.util.Date;
 
-public class GoodsVo {
+public class GoodsVo extends Goods {
 
     private Double miaoshaPrice;
     private Integer stockCount;

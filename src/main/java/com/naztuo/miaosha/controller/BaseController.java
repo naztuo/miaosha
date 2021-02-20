@@ -20,7 +20,7 @@ public class BaseController {
 
 
     //加一个配置项
-    @Value("#{'${pageCache.enbale}'}")
+    @Value("#{'${pageCache.enable}'}")
     private boolean pageCacheEnable;
 
     @Autowired

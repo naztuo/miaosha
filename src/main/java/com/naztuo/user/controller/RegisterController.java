@@ -19,6 +19,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import static com.naztuo.common.enums.ResultStatus.SUCCESS;
+
 /**
  * 用户注册类
  */
@@ -43,7 +45,7 @@ public class RegisterController {
         ImageIO.write(image, "JPEG", out);
         out.flush();
         out.close();
-        return RspMsg.success(image);
+        return RspMsg.success(SUCCESS.getMessage(),image);
     }
 
 
@@ -71,7 +73,7 @@ public class RegisterController {
         if (!registerInfo) {
             return RspMsg.error(ResultStatus.RESIGETER_FAIL);
         }
-        return RspMsg.success(ResultStatus.RESIGETR_SUCCESS);
+        return RspMsg.success(ResultStatus.RESIGETR_SUCCESS.getMessage());
     }
 
 }

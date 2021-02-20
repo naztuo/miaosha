@@ -25,11 +25,15 @@ public class RspMsg<T> extends AbstractResult implements Serializable {
         this.count = count;
     }
 
+    protected RspMsg(ResultStatus status, String message, T data) {
+        super(status, message);
+        this.data = data;
+    }
+
     protected RspMsg(ResultStatus status, T data) {
         super(status);
         this.data = data;
     }
-
 
 
     public static <T> RspMsg<T> success() {
@@ -40,8 +44,12 @@ public class RspMsg<T> extends AbstractResult implements Serializable {
         return new RspMsg(ResultStatus.SUCCESS, message);
     }
 
-    public static <T> RspMsg<T> success(T data) {
-        return new RspMsg<>(ResultStatus.SUCCESS, data);
+    public static <T> RspMsg<T> success(ResultStatus resultStatus) {
+        return new RspMsg(resultStatus.SUCCESS, resultStatus.getMessage());
+    }
+
+    public static <T> RspMsg<T> success(String message, T data) {
+        return new RspMsg<>(ResultStatus.SUCCESS, message, data);
     }
 
     public static <T> RspMsg<T> error(ResultStatus status) {

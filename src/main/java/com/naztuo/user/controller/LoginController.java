@@ -29,7 +29,7 @@ public class LoginController {
         LOGGER.info(loginVo.toString());
         //未完成
         userService.vistorCount(Consts.COUNTLOGIN);
-        long count = userService.getVistorCount(Consts.COUNTLOGIN);
+        Long count = userService.getVistorCount(Consts.COUNTLOGIN);
         LOGGER.info("访问网站的次数为:{}",count);
         model.addAttribute("count",count);
         return "login";

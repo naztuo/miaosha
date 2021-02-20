@@ -22,3 +22,6 @@ mybatis:
     map-underscore-to-camel-case: true
   config-locations: classpath:mybatis/mybatis-config.xml
 
+pageCache:
+  enable: true
+

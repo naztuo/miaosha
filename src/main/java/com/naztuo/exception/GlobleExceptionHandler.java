@@ -29,6 +29,7 @@ public class GlobleExceptionHandler {
     public RspMsg exceptionHandler(HttpServletRequest request, Exception e) {
         if (e instanceof GlobleException) {
             GlobleException ex = (GlobleException) e;
+            logger.error(e.getMessage(),e);
             return RspMsg.error(ex.getStatus());
         } else if (e instanceof BindException) {
             BindException ex = (BindException) e;
@@ -41,6 +42,7 @@ public class GlobleExceptionHandler {
             logger.error(String.format(msg, msg));
             return RspMsg.error(ResultStatus.SESSION_ERROR);
         } else {
+            logger.error(e.getMessage(),e);
             return RspMsg.error(ResultStatus.SYSTEM_ERROR);
         }
     }

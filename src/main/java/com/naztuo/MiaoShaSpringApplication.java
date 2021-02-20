@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages = {"com.naztuo.user.dao","com.naztuo.miaosha.dao"})
+//@MapperScan(basePackages = {"com.naztuo.user.dao","com.naztuo.miaosha.dao"})
 public class MiaoShaSpringApplication {
 
     public static void main(String[] args) {

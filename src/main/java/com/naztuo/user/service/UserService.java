@@ -9,6 +9,7 @@ import com.naztuo.user.bean.MiaoshaUser;
 import com.naztuo.user.dao.UserDao;
 import com.naztuo.util.MD5Utils;
 import com.naztuo.util.UUIDUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
-    private static final String COOKIE_NAME_TOKEN = "token";
+    public static final String COOKIE_NAME_TOKEN = "token";
 
     @Autowired
     private RedisService redisService;
@@ -154,14 +155,16 @@ public class UserService {
         DefaultRedisScript<Long> redisScript = new DefaultRedisScript<>(count, Long.class);
         java.util.List<String> keys = new ArrayList<>();
         keys.add(key);
-        redisService.execute(redisScript, keys, null);
+        redisService.execute(redisScript, keys, new String[]{});
     }
 
-    public long getVistorCount(String key) {
+    public Long getVistorCount(String key) {
         String count = "local num=redis.call('get',KEYS[1]) return num";
         DefaultRedisScript<Long> redisScript = new DefaultRedisScript<>(count, Long.class);
         List<String> keys = new ArrayList<>();
-        return redisService.execute(redisScript, keys, null);
+        keys.add(key);
+        System.out.println(redisService.execute(redisScript, keys, new String[]{}));
+        return redisService.execute(redisScript, keys, new String[]{});
     }
 
     public boolean login(HttpServletResponse response, LoginVo loginVo) {
@@ -224,6 +227,19 @@ public class UserService {
             redisService.set(RedisUserKey.getByNickName, "" + nickName, user);
         }
         return user;
+    }
+
+    public MiaoshaUser getByToken(HttpServletResponse response , String token) {
+
+        if(StringUtils.isEmpty(token)){
+            return null ;
+        }
+        MiaoshaUser user =redisService.get(RedisUserKey.token,token,MiaoshaUser.class) ;
+        if(user!=null) {
+            addCookie(response, token, user);
+        }
+        return user ;
+
     }
 
 }

@@ -38,19 +38,44 @@ public class RedisService {
     }
 
     /**
+     * 设置对象
+     *
+     * @return
+     */
+    public Long incr(KeyPrefix prefix, String key) {
+        //生成真正的key
+        String realKey = prefix.getPrefix() + key;
+        return redisTemplate.opsForValue().increment(realKey);
+
+    }
+
+    /**
      * 获取当个对象
      */
     public <T> T get(KeyPrefix prefix, String key, Class<T> clazz) {
         //生成真正的key
         String realKey = prefix.getPrefix() + key;
-        String str = (String) redisTemplate.opsForValue().get(realKey);
-        T t = stringToBean(str, clazz);
+        System.out.println(redisTemplate.opsForValue().get(realKey));
+        Object val = redisTemplate.opsForValue().get(realKey);
+        T t = val == null ? null : stringToBean(val.toString(), clazz);
         return t;
     }
 
-    public <T> T  execute(DefaultRedisScript<T> redisScript, List<String> keys, Object... args) {
+    public <T> T execute(DefaultRedisScript<T> redisScript, List<String> keys, Object... args) {
+
         return (T) redisTemplate.execute(redisScript, keys, args);
     }
+
+//    public <T> T execute(String luaText,List<String> keys, Object... args) {
+//        redisTemplate.execute((RedisConnection connection)-> connection.eval(
+//
+//                luaText.getBytes(),//lua脚本字符串
+//                ReturnType.VALUE,//设置返回值 byte[]
+//                1, //设置key数量
+//                keys.getBytes(), //key1
+//                gold.toString().getBytes()//Args 值
+//        ))
+//    }
 
 
     public static <T> T stringToBean(String str, Class<T> clazz) {
@@ -99,6 +124,25 @@ public class RedisService {
         } else {
             return JSON.toJSONString(value);
         }
+    }
+
+    /**
+     * 减少值
+     */
+    public <T> Long decr(KeyPrefix prefix, String key) {
+
+        //生成真正的key
+        String realKey = prefix.getPrefix() + key;
+        return redisTemplate.opsForValue().decrement(realKey);
+    }
+
+    /**
+     * 判断key是否存在
+     */
+    public <T> boolean exists(KeyPrefix prefix, String key) {
+        //生成真正的key
+        String realKey = prefix.getPrefix() + key;
+        return redisTemplate.hasKey(realKey);
     }
 
 }
